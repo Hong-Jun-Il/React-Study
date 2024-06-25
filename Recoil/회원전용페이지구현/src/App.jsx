@@ -2,20 +2,30 @@ import styled from "styled-components";
 import { useInput } from "./hooks/useInput";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import { TokenAtom } from "./Recoil/TokenAtom";
 
 function App() {
   const [id, onChangeId, setId] = useInput("");
   const [pw, onChangePw, setPw] = useInput("");
-  const [content, setContent] = useState("asd");
+  const [accessToken, setAccessToken] = useRecoilState(TokenAtom);
 
-  const handleSubmit = () =>{
-    fetch("/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({content}),
-    })
+  const handleSubmit = async () =>{
+    if(id === "" || pw === ""){
+      alert("입력해라");
+      return;
+    }
+
+    try{
+      const response = await axios.post("/login", {
+        id: id,
+        pw: pw
+      })
+
+      setAccessToken(response.data.accessToken);
+    }catch(e){
+      console.log(e);
+    }
   }
 
   return (
