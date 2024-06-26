@@ -1,7 +1,5 @@
 import { http, HttpResponse } from "msw";
 
-const todos = ["먹기", "자기", "놀기"];
-
 export const handlers = [
   http.post("/login", async({request})=>{
     const requestBody = await request.json();
