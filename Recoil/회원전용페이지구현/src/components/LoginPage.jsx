@@ -4,13 +4,15 @@ import { useInput } from "../hooks/useInput";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { TokenAtom } from "../Recoil/TokenAtom";
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
     const [id, onChangeId, setId] = useInput("");
     const [pw, onChangePw, setPw] = useInput("");
     const [accessToken, setAccessToken] = useRecoilState(TokenAtom);
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location?.state?.redirectedFrom?.pathname || "/";
 
     const handleSubmit = async () => {
         if (id === "" || pw === "") {
@@ -25,7 +27,7 @@ const LoginPage = () => {
             })
 
             setAccessToken(response.data.accessToken);
-            navigate("/");
+            navigate(from);
 
         } catch (e) {
             console.log(e);

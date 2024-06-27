@@ -3,6 +3,7 @@ import styled from "styled-components";
 import LoginPage from "./components/LoginPage";
 import MainPage from "./components/MainPage";
 import MyPage from "./components/MyPage";
+import ProtectedRoute from "./Routes/ProtectedRoute";
 
 function App() {
   
@@ -12,7 +13,9 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/loginpage" element={<LoginPage />} />
-        <Route path="/mypage" element={<MyPage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="mypage" element={<MyPage />} />
+        </Route>
       </Routes>
     </Main>
   );

@@ -1,22 +1,7 @@
-import React, { useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import React from 'react';
 import styled from 'styled-components';
-import { isLoginSelector } from '../Recoil/TokenAtom';
-import { useNavigate } from 'react-router-dom';
 
 const MyPage = () => {
-    const isLogin = useRecoilValue(isLoginSelector);
-    const navigate = useNavigate();
-    useEffect(()=>{
-        if(isLogin){
-            return;
-        }
-        else{
-            alert("로그인하세여");
-            navigate("/loginpage");
-            return;
-        }
-    }, [])
 
     return (
         <StyledMypage>
