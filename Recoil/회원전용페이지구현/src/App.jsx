@@ -25,7 +25,6 @@ const Main = styled.main`
   width: 100%;
   min-height: 100vh;
   background-color: aliceblue;
-  font-size: 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
