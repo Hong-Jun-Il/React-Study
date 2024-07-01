@@ -1,18 +1,14 @@
 import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import Todo from "./components/Todo";
-import ItemList from "./components/ItemList";
-import Cart from "./components/Cart";
+import SignUp from "./components/login/SignUp";
+import CoinList from "./components/api/CoinList";
 
 function App() {
 
   return (
     <Main>
       <Routes>
-        <Route path="/" element={<ItemList />} />
-        <Route path="cartlist" element={<Cart />} />
+        <Route path="/" element={<CoinList />} />
       </Routes>
     </Main>
   );
