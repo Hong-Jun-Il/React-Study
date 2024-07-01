@@ -1,7 +1,7 @@
 import React from 'react';
 import { useInput } from '../../hooks/useInput';
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { authService } from '../../firebase';
+// import { createUserWithEmailAndPassword } from "firebase/auth";
+// import { authService } from '../../firebase';
 
 const SignUp = () => {
     const [email, onChangeEmail, setEmail] = useInput("");
@@ -9,8 +9,8 @@ const SignUp = () => {
 
     const onSubmit = async()=>{
         try{
-            const data = await createUserWithEmailAndPassword(authService, email, pw);
-            console.log(data);
+            // const data = await createUserWithEmailAndPassword(authService, email, pw);
+            // console.log(data);
         }catch(e){
             console.log(e.message);
         }
