@@ -1,5 +1,7 @@
-function coinReducer(state, action){
-    switch(action.type){
+import { useEffect, useReducer } from "react";
+
+function reducer(state, action) {
+    switch (action.type) {
         case "LOADING":
             return {
                 data: null,
@@ -23,3 +25,39 @@ function coinReducer(state, action){
     }
 }
 
+export function useAsync(callback, deps = [], skip = false) {
+    const [state, dispatch] = useReducer(reducer, {
+        data: null,
+        loading: false,
+        error: null
+    })
+
+    const fetchData = async () => {
+        dispatch({
+            type: "LOADING",
+        })
+
+        try {
+            const data = await callback();
+
+            dispatch({
+                type: "SUCCESS",
+                data
+            })
+        } catch (e) {
+            dispatch({
+                type: "ERROR",
+                e
+            })
+        }
+    };
+
+    useEffect(() => {
+        if(skip){
+            return;
+        }
+        fetchData();
+    }, deps);
+
+    return [state, fetchData];
+};
