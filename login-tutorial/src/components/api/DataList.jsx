@@ -2,9 +2,10 @@ import React, { useEffect, useReducer, useState } from 'react';
 import axios from "axios";
 import styled from 'styled-components';
 import { useAsync } from '../../hooks/useAsync';
-import {gsap} from "gsap";
+import { gsap } from "gsap";
+import DataItem from './DataItem';
 
-async function getUsers(){
+async function getUsers() {
     // const response = await axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=200&page=1&x_cg_demo_api_key=CG-AYLRnqXGz5a5gaEdoynehsnZ");
     const response = await axios.get("https://jsonplaceholder.typicode.com/users");
 
@@ -13,6 +14,7 @@ async function getUsers(){
 
 const Users = () => {
     const [state, refetch] = useAsync(getUsers, [], true);
+    const [userId, setUserId] = useState(null);
 
     return (
         <StyledDataList>
@@ -24,16 +26,19 @@ const Users = () => {
             )}
             {state.data && (
                 <>
-                <DataListWrapper>
-                    {state.data.map(data=>{
-                        return <Data>
-                            <h2>{data.name}</h2>
-                        </Data>
-                    })}
-                </DataListWrapper>
-                <button onClick={refetch}>다시 불러오기</button>
+                    <DataListWrapper>
+                        {state.data.map(data => {
+                            return <Data key={data.id} onClick={() => {
+                                setUserId(data.id);
+                            }}>
+                                <h2>{data.name}</h2>
+                            </Data>
+                        })}
+                    </DataListWrapper>
+                    <button onClick={refetch}>다시 불러오기</button>
                 </>
             )}
+            {userId && <DataItem id={userId} />}
         </StyledDataList>
     );
 };
@@ -67,6 +72,7 @@ const DataListWrapper = styled.ul`
 const Data = styled.li`
     font-size: 3rem;
     border: 1px solid;
+    cursor: pointer;
 `;
 
 export default Users;

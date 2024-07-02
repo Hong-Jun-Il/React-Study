@@ -34,7 +34,7 @@ export function useAsync(callback, deps = [], skip = false) {
 
     const fetchData = async () => {
         dispatch({
-            type: "LOADING",
+            type: "LOADING"
         })
 
         try {
