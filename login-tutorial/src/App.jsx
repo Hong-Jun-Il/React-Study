@@ -1,16 +1,18 @@
 import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
-import SignUp from "./components/login/SignUp";
-import DataList from "./components/api/DataList";
+import { UsersProvider } from "./contexts/UsersContext";
+import Users from "./components/벨로퍼트 API연습/Users.jsx";
 
 function App() {
 
   return (
-    <Main>
-      <Routes>
-        <Route path="/" element={<DataList />} />
-      </Routes>
-    </Main>
+    <UsersProvider>
+      <Main>
+        <Routes>
+          <Route path="/" element={<Users />} />
+        </Routes>
+      </Main>
+    </UsersProvider>
   );
 }
 

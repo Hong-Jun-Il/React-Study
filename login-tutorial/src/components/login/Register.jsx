@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useEffect } from 'react';
 import styled from "styled-components";
 import { useInput } from '../hooks/useInput';
-import axios from '../api/axios';
+import axios from '../벨로퍼트 API연습/axios';
 
 const Register = () => {
     const REGISTER_URL = '/register';

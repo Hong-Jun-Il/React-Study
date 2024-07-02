@@ -1,4 +1,5 @@
 import { createContext, useContext, useReducer } from "react"
+import axios from "../api/axios"
 
 const initialState = {
     users: {
@@ -42,7 +43,7 @@ function reducer(state, action) {
         case "GET_USERS_LOADING":
             return {
                 ...state,
-                users: loadingState
+                users: loadingState()
             }
         case "GET_USERS_SUCCESS":
             return {
@@ -57,7 +58,7 @@ function reducer(state, action) {
         case "GET_USER_LOADING":
             return {
                 ...state,
-                user: loadingState
+                user: loadingState()
             }
         case "GET_USER_SUCCESS":
             return {
@@ -107,4 +108,42 @@ export function useUsersDispatch(){
     }
 
     return context;
+}
+
+export async function getUsers(dispatch){
+    dispatch({
+        type: "GET_USERS_LOADING"
+    })
+    try{
+        const response = await axios.get("https://jsonplaceholder.typicode.com/users");
+
+        dispatch({
+            type: "GET_USERS_SUCCESS",
+            data: response.data
+        })
+    }catch(e){
+        dispatch({
+            type: "GET_USERS_ERROR",
+            error: e
+        })
+    }
+}
+
+export async function getUser(dispatch, id){
+    dispatch({
+        type: "GET_USER_LOADING"
+    })
+    try{
+        const response = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
+
+        dispatch({
+            type: "GET_USER_SUCCESS",
+            data: response.data
+        })
+    }catch(e){
+        dispatch({
+            type: "GET_USER_ERROR",
+            error: e
+        })
+    }
 }
