@@ -41,7 +41,7 @@ const StyledLogin = styled.div`
     input{
         width: 200px;
         height: 3rem;
-        font-size: 3rem;
+        font-size: 1.5rem;
     }
 `;
 
