@@ -21,5 +21,11 @@ module.exports = [
         nickname : 'testuser4',
         email : 'testuser4@gmail.com',
         password : '4444'
+    },
+    {
+        id : 5,
+        nickname : 'testuser5',
+        email : 'grt1022rt',
+        password : '1111'
     }
 ]

@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { useInput } from '../../hooks/useInput';
 import axios from '../../api/axios';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [email, onChangeEmail, setEmail] = useInput("");
     const [pw, onChangePw, setPw] = useInput("");
+    const navigate = useNavigate();
 
     const onLogin = async() =>{
         const submitObject = {
@@ -14,8 +16,11 @@ const Login = () => {
         }
 
         try{
-            const response = await axios.post("http://localhost:8123/login", submitObject);
-            console.log(response);
+            const response = await axios.post("http://localhost:8123/login", submitObject, {
+                withCredentials: true 
+            });
+            alert(response.data.message);
+            navigate("/main");
         }catch(e){
             console.log(e);
         }
