@@ -12,6 +12,8 @@ import qs11 from '../assets/qs11.png';
 import qs12 from '../assets/qs12.png';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
+import { useMbtiDispatch, useMbtiState } from '../context/mbtiContext';
+import { useEffect } from 'react';
 
 const questions = {
   1: {
@@ -100,18 +102,16 @@ const questions = {
   },
 };
 
-function Question({ num, setNum, updateScore }) {
+function Question() {
   const navigate = useNavigate();
+  const { num, mbtiScore } = useMbtiState();
+  const dispatch = useMbtiDispatch();
 
-  const handleAnswer = (type, value) => {
-    updateScore(type, value);
-
-    if (num < 12) {
-      setNum(num + 1);
-    } else {
-      navigate('/result');
+  useEffect(()=>{
+    if(num===12){
+      navigate("/result")
     }
-  };
+  }, [num]);
 
   const currentQuestion = questions[num];
 
@@ -132,15 +132,29 @@ function Question({ num, setNum, updateScore }) {
       </div>
       <button
         className="btn btn-warning"
-        onClick={() => handleAnswer(currentQuestion.type, 1)}
+        onClick={() => {
+          dispatch({
+            type: "SET_SCORE",
+            mbtiType: currentQuestion.type,
+            value: 1
+          });
+
+          dispatch({
+            type: "SET_CURRENT_QUESTION",
+          });
+        }}
       >
         {currentQuestion.A}
       </button>
       <button
         className="btn btn-warning mt-3"
-        onClick={() => handleAnswer(currentQuestion.type, 0)}
+        onClick={() => {
+          dispatch({
+            type: "SET_CURRENT_QUESTION",
+          });
+        }}
       >
-        {currentQuestion.A}
+        {currentQuestion.B}
       </button>
     </div>
   );

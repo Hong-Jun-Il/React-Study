@@ -15,6 +15,7 @@ import enfpImg from '../assets/흰둥이.png';
 import entjImg from '../assets/나미리선생님.png';
 import entpImg from '../assets/짱구.png';
 import { useNavigate } from 'react-router-dom';
+import { useMbtiDispatch, useMbtiState } from '../context/mbtiContext';
 
 const results = {
   ISFJ: {
@@ -115,8 +116,10 @@ const results = {
   },
 };
 
-function Result({ score, resetState }) {
+function Result() {
   const navigate = useNavigate();
+  const { score } = useMbtiState();
+  const dispatch = useMbtiDispatch();
 
   const getResult = () => {
     let result = '';
@@ -131,7 +134,9 @@ function Result({ score, resetState }) {
   const result = getResult();
 
   const handleRestart = () => {
-    resetState();
+    dispatch({
+      type: "RESET_SCORE"
+    })
     navigate('/question');
   };
 
