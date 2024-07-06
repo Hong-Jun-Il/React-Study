@@ -21,7 +21,7 @@ const login = (req, res) => {
                 nickname: userInfo.nickname,
                 email: userInfo.email,
             }, process.env.ACCESS_SECRET, {
-                expiresIn: "5s",
+                expiresIn: "30s",
                 issuer: "Hong"
             })
 
@@ -84,7 +84,7 @@ const refreshToken = (req, res) => {
             nickname: userData.nickname,
             email: userData.email,
         }, process.env.ACCESS_SECRET, {
-            expiresIn: "3s",
+            expiresIn: "30s",
             issuer: "Hong"
         })
 
@@ -104,7 +104,12 @@ const loginSuccess = (req, res) => {
 }
 
 const logout = (req, res) => {
-
+    try{
+        res.cookies("accessToken", "");
+        res.status(200).json("logout success");
+    }catch(e){
+        res.status(500).json(e);
+    }
 }
 
 module.exports = {

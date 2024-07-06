@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useInput } from '../../hooks/useInput';
-import axios from '../../api/axios';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -42,6 +42,7 @@ const StyledLogin = styled.div`
     align-items: center;
     flex-direction: column;
     font-size: 5rem;
+    border: 1px solid red;
 
     input{
         width: 200px;

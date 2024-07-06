@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react"
-import axios from "../api/axios"
+import axios from "axios";
 
 const initialState = {
     users: {

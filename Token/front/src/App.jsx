@@ -6,12 +6,15 @@ import SignUp from "./components/login/SignUp.jsx";
 import Register from "./components/login/Register.jsx";
 import Login from "./components/login/Login.jsx";
 import MainPage from "./components/login/MainPage.jsx";
-import axios from "./api/axios.jsx";
+import axios from "axios";  
+import { baseURL } from "./api/api.jsx";
 
 function App() {
+  //페이지 로딩 시 acesstoken에 접근을 해서 토큰 에러가 뜬다면 로그인 화면으로 보내주고
+  //아니라면 그냥 화면 보여주기
   const accessToken = async() =>{
     try{
-      const response = await axios.get("http://localhost:8123/accesstoken", {
+      const response = await baseURL.get("/accesstoken", {
         withCredentials: true
       });
 
@@ -23,7 +26,7 @@ function App() {
 
   const refreshToken = async() => {
     try{
-      const response = await axios.get("http://localhost:8123/refreshtoken", {
+      const response = await baseURL.get("/refreshtoken", {
         withCredentials: true
       })
       console.log(response.data)
