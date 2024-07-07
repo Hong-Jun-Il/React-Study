@@ -100,17 +100,26 @@ const refreshToken = (req, res) => {
 }
 
 const loginSuccess = (req, res) => {
-
-}
-
-const logout = (req, res) => {
     try{
-        res.cookies("accessToken", "");
-        res.status(200).json("logout success");
+        const token = req.cookies.accessToken;
+        const data = jwt.verify(token, process.env.ACCESS_SECRET);
+
+        const userData = userDatabase.filter(user=>user.email === data.email)[0];
+
+        res.status(200).json(userData);
     }catch(e){
         res.status(500).json(e);
     }
 }
+
+const logout = (req, res) => {
+    try {
+      res.cookie('accessToken', '');
+      res.status(200).json("Logout Success");
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  };
 
 module.exports = {
     login,
