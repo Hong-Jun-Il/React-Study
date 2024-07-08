@@ -1,14 +1,15 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
+import { baseURL } from "../api/api";
 
 const initialState = {
-    currentUserId: null,
+    currentUser: null
 }
 
 function reducer(state, action) {
     switch (action.type) {
         case "LOGIN":
             return {
-                currentUserId: action.currentUserId
+                currentUser: action.currentUser
             };
         default:
             throw new Error(`Unhandled Action Type : ${action.type}`);
@@ -20,6 +21,25 @@ const LoginDispatchContext = createContext();
 
 export function LoginProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, initialState);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await baseURL.get("/accesstoken", {
+                    withCredentials: true
+                });
+                dispatch({
+                    type: "LOGIN",
+                    currentUser: response.data
+                });
+                
+            } catch (e) {
+                console.log(e);
+            }
+        };
+    
+        fetchData();
+    }, []);
 
     return (
         <LoginStateContext.Provider value={state}>

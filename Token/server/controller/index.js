@@ -27,7 +27,7 @@ const login = (req, res) => {
                 nickname: userInfo.nickname,
                 email: userInfo.email,
             }, process.env.ACCESS_SECRET, {
-                expiresIn: "30s",
+                expiresIn: "1m",
                 issuer: "Hong"
             })
 
@@ -50,8 +50,10 @@ const login = (req, res) => {
                 httpOnly: true
             })
 
+            const {password, ...others} = userInfo;
+
             res.status(200).json({
-                currentUserId: userInfo.id,
+                currentUser: others,
                 message: "login success"
             });
         } catch (error) {
@@ -90,7 +92,7 @@ const refreshToken = (req, res) => {
             nickname: userData.nickname,
             email: userData.email,
         }, process.env.ACCESS_SECRET, {
-            expiresIn: "30s",
+            expiresIn: "1m",
             issuer: "Hong"
         })
 

@@ -26,7 +26,7 @@ const Login = () => {
 
             dispatch({
                 type: "LOGIN",
-                currentUserId: response.data.currentUserId
+                currentUser: response.data
             })
             navigate("/");
         }catch(e){

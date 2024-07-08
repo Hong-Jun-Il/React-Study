@@ -7,7 +7,9 @@ import { useLoginDispatch, useLoginState } from '../../contexts/LoginContext';
 import Loading from './Loading';
 
 const MainPage = () => {
+    const {currentUser} = useLoginState();
 
+    console.log(currentUser, "ASdsaada");
 
     return (
         <Main>
