@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { baseURL } from '../../api/api';
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import MainHeader from './MainHeader';
 import styled from 'styled-components';
+import { useLoginDispatch, useLoginState } from '../../contexts/LoginContext';
+import Loading from './Loading';
 
 const MainPage = () => {
+
 
     return (
         <Main>

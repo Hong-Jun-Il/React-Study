@@ -5,26 +5,10 @@ import { useAsync } from '../../hooks/useAsync';
 import Loading from './Loading';
 
 const Home = () => {
-    const getUsers = async()=>{
-        const response = await baseURL.get("/users");
-
-        return response.data;
-    }
-
-    const [state, refetch] = useAsync(getUsers, []);
-
-    const {data: users, loading, error} = state;
 
     return (
         <HomeWrapper>
-            {loading && !users &&(
-                <Loading />
-            )}
-            {users?.map(user=>{
-                return <li key={user.id}>
-                    {user.nickname}
-                </li>
-            })}
+            
         </HomeWrapper>
     );
 };

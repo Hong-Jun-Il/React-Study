@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
 import { baseURL } from "./api/api.jsx";
 import MainHeader from "./components/login/MainHeader.jsx";
+import Login from "./components/login/Login.jsx";
 import SignUp from "./components/login/SignUp.jsx";
 import MainPage from "./components/login/MainPage.jsx";
 import MyPage from "./components/login/MyPage.jsx";
@@ -19,6 +20,7 @@ function App() {
             <Route path="mypage" element={<MyPage />} />
           </Route>
         </Route>
+        <Route path="login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
     </RootWrapper>
@@ -28,9 +30,10 @@ function App() {
 const RootWrapper = styled.main`
     background-color: #232B29;
     width: 100%;
-    height: auto;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
+    align-items: center;
 `;
 
 export default App;

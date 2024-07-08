@@ -14,7 +14,13 @@ const login = (req, res) => {
 
     if (!userInfo) {
         res.status(403).json("Not Authorized");
-    } else {
+    } 
+    else if(userInfo.password!==password){
+        res.status(401).json({
+            message: "비밀번호가 맞지 않습니다."
+        });
+    }
+    else {
         try {
             const accessToken = jwt.sign({
                 id: userInfo.id,
@@ -45,7 +51,7 @@ const login = (req, res) => {
             })
 
             res.status(200).json({
-                data: "data",
+                currentUserId: userInfo.id,
                 message: "login success"
             });
         } catch (error) {
@@ -106,7 +112,9 @@ const loginSuccess = (req, res) => {
 
         const userData = userDatabase.filter(user=>user.email === data.email)[0];
 
-        res.status(200).json(userData);
+        const {password, ...others} = userData;
+
+        res.status(200).json(others);
     }catch(e){
         res.status(500).json(e);
     }
