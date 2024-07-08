@@ -121,10 +121,27 @@ const logout = (req, res) => {
     }
   };
 
+const getUsers = (req, res) => {
+    try{
+        const users = userDatabase.map(user=>{
+            return {
+                id: user.id,
+                email: user.email,
+                nickname: user.nickname
+            }
+        })
+        
+        res.status(200).json(users);
+    }catch(e){
+        console.log(e);
+    }
+}
+
 module.exports = {
     login,
     accessToken,
     refreshToken,
     loginSuccess,
-    logout
+    logout,
+    getUsers
 }

@@ -8,6 +8,7 @@ const {
   refreshToken,
   loginSuccess,
   logout,
+  getUsers
 } = require("./controller");
 
 const app = express();
@@ -28,6 +29,7 @@ app.get("/accesstoken", accessToken);
 app.get("/refreshtoken", refreshToken);
 app.get("/login/success", loginSuccess);
 app.post("/logout", logout);
+app.get("/users", getUsers);
 
 app.listen(process.env.PORT, () => {
   console.log(`server is on ${process.env.PORT}`);

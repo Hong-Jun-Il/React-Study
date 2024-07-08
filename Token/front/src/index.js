@@ -3,13 +3,16 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { BrowserRouter } from "react-router-dom";
 import { GlobalStyles } from './styles/GlobalStyle';
+import { LoginProvider } from './contexts/LoginContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
   <BrowserRouter>
-      <GlobalStyles />
+    <GlobalStyles />
+    <LoginProvider>
       <App />
+    </LoginProvider>
   </BrowserRouter>
   // </React.StrictMode>
 );
