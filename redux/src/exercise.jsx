@@ -1,16 +1,32 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
+let nextId = 2;
 const initialState = {
-    todos: []
+    todos: [{
+        id: 1,
+        text: "밥먹기",
+        done: false,
+        until: "2024-07-11"
+    }],
+    // counter: 0,
+    // text: ""
 };
 
 const todoSlice = createSlice({
-    name: "todo",
+    name: "todos",
     initialState,
     reducers: {
        addTodo(state, action){
-            state.todos = action.payload.data
-       }
+            state.todos.push({
+                id: nextId++,
+                text: action.payload.text,
+                done: false,
+                until: action.payload.until
+            });
+       },
+    //    removeTodo(state, action){
+    //         state.todos = state.todos.filter(todo=>todo.id!==action.data.id);
+    //    }
     }
 })
 
