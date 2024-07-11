@@ -1,33 +1,68 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from "react";
-import { todoActions } from "./exercise"
+import { testActions, todoActions } from "./exercise"
 
 function App() {
-  const [input, setInput] = useState("");
-  const todos = useSelector(state => state.todo.todos);
+  const [todoInput, setTodoInput] = useState("");
+  const [textInput, setTextInput] = useState("");
+  const todos = useSelector(state => state.todos);
+  const counter = useSelector(state => state.counter);
+  const text = useSelector(state=>state.text);
   const dispatch = useDispatch();
-  console.log(todos)
 
   return (
     <RootWrapper>
-      <input type="text" value={input} onChange={e => setInput(e.target.value)} />
-      <button onClick={() => {
-        dispatch(todoActions.addTodo({
-          text: input,
-          until: "내일시발아"
-        }));
-        setInput("");
-      }}>등록</button>
-      <ul>
-        {todos.map(todo=>{
-          return <li key={todo.id}>
-            <span>{todo.id}</span>
-            <span done = {todo.done}>{todo.text}</span>
-            <span>{todo.until}</span>
-          </li>
-        })}
-      </ul>
+      <section className="todoSection">
+        <div className="todo-input-section">
+          <input type="text" value={todoInput} onChange={e => setTodoInput(e.target.value)} />
+          <button onClick={() => {
+            dispatch(testActions.addTodo({
+              text: todoInput,
+              done: false,
+              until: "내일"
+            }));
+            setTodoInput("");
+          }}>등록</button>
+        </div>
+        <ul className="todo-list-section">
+          {todos.map(todo => {
+            return <li key={todo.id}>
+              <StyledH2 onClick={()=>{
+                dispatch(testActions.toggleTodo(todo.id));
+              }} $done={todo.done}>{todo.text}</StyledH2>
+              <span>{todo.until}</span>
+              <button onClick={() => {
+                dispatch(testActions.removeTodo(todo.id));
+              }}>삭제</button>
+            </li>
+          })}
+        </ul>
+      </section>
+      <section className="counterSection">
+        <h1>{counter}</h1>
+        <div className="btns">
+          <button onClick={() => {
+            dispatch(testActions.decrease());
+          }}>-1</button>
+          <button onClick={() => {
+            dispatch(testActions.resetCounter());
+          }}>reset</button>
+          <button onClick={() => {
+            dispatch(testActions.increase());
+          }}>+1</button>
+        </div>
+      </section>
+      <section className="textSection">
+        <input type="text" value={textInput} onChange={e=>{
+          setTextInput(e.target.value);
+        }} />
+        <button onClick={()=>{
+          dispatch(testActions.setText(textInput));
+          setTextInput("");
+        }}>등록</button>
+        {text}
+      </section>
     </RootWrapper>
   );
 }
@@ -39,20 +74,55 @@ const RootWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  ul{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    width: 50%;
-    min-height: 100vh;
+  section{
+    flex: 1;
+    border: 1px solid red;
+    height: 100vh;
+  }
+  .todoSection{
 
-    li{
-      border: 1px solid red;
+    .todo-input-section{
+      height: 30%;
+      border-bottom: 1px solid green;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-      span{
-        color: ${({done})=>done ? "black" : "red"};
+    .todo-list-section{
+      height: 70%;
+      font-size: 3rem;
+
+      li{
+        border: 1px solid red;
       }
     }
   }
+
+  .counterSection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 3rem;
+
+    .btns{
+      button{
+        font-size: 3rem;
+      }
+    }
+  }
+
+  .textSection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+  }
+`;
+
+const StyledH2 = styled.h2`
+  color: ${({ $done }) => $done ? "black" : "red"};
 `;
 
 export default App;
