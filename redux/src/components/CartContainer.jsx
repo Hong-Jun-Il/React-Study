@@ -1,9 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { clearCart, decrease, increase, removeItem } from '../features/cart/cartSlice';
 
 const CartContainer = () => {
     const { cartItems, amount, total } = useSelector(store => store.cart);
+    const dispatch = useDispatch();
 
     return (
         <StyledCartContainer>
@@ -22,7 +24,36 @@ const CartContainer = () => {
                     <ul>
                         {cartItems.map(item => {
                             return <li key={item.id}>
-                                dd
+                                <div className="img-wrapper">
+                                    <img src={item.img} alt="" />
+                                </div>
+                                <div className="item-info">
+                                    <h2 className="title">
+                                        {item.title}
+                                    </h2>
+                                    <span className="price">
+                                        ${item.price}
+                                    </span>
+                                    <button className="remove-btn" onClick={()=>{
+                                        dispatch(removeItem(item.id));
+                                    }}>
+                                        remove
+                                    </button>
+                                </div>
+                                <div className="set-amount">
+                                    <button onClick={()=>{
+                                        dispatch(increase(item))
+                                    }}>+1</button>
+                                    <span>{item.amount}</span>
+                                    <button onClick={()=>{
+                                        if(item.amount === 1){
+                                            dispatch(removeItem(item.id));
+                                            return;
+                                        }
+
+                                        dispatch(decrease(item));
+                                    }}>-1</button>
+                                </div>
                             </li>
                         })}
                     </ul>
@@ -33,7 +64,9 @@ const CartContainer = () => {
                                 total <span>${total}</span>
                             </h4>
                         </div>
-                        <button className='clear-btn'>
+                        <button className='clear-btn' onClick={()=>{
+                            dispatch(clearCart());
+                        }}>
                             clear cart
                         </button>
                     </footer>
@@ -45,7 +78,6 @@ const CartContainer = () => {
 
 const StyledCartContainer = styled.section`
     width: 90vw;
-    /* border: 1px solid red; */
     font-size: 3rem;
     margin: 0 auto;
     margin-top: 100px;
@@ -65,14 +97,54 @@ const StyledCartContainer = styled.section`
     }
 
     ul{
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        display: flex;
+        flex-direction: column;
         width: 100%;
         min-height: calc(100vh - 450px);
         
         li{
-            border: 1px solid red;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            height: 200px;
+
+            .img-wrapper{
+                width: 13%;
+                height: 100%;
+                margin-right: 5rem;
+                min-width: 150px;
+            }
+
+            .item-info{
+                display: flex;
+                flex-direction: column;
+                width: 80%;
+
+                .remove-btn{
+                    font-size: 2rem;
+                    width: 150px;
+                    border: 1px solid red;
+                    background-color: transparent;
+                    color: red;
+                    cursor: pointer;
+                    margin-top: 10px;
+                }
+            }
+
+            .set-amount{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                height: 100%;
+
+                span{
+                    margin: 20px 0;
+                }
+
+                button{
+                    font-size: 2rem;
+                }
+            }
         }
     }
 
