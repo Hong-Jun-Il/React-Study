@@ -1,22 +1,68 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { clearCart, decrease, increase, removeItem } from '../features/cart/cartSlice';
+import { calcTotals, clearCart, decrease, getCartItems, increase, removeItem } from '../features/cart/cartSlice';
+import Modal from 'react-modal';
+
+const customStyles = {
+    overlay: {
+        backgroundColor: " rgba(0, 0, 0, 0.4)",
+        width: "100%",
+        height: "100vh",
+        zIndex: "99999999",
+        position: "fixed",
+        top: "0",
+        left: "0",
+    },
+    content: {
+        position: "absolute",
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        width: "800px",
+        height: "300px",
+        backgroundColor: "#EEEDEB",
+        borderRadious: "10px"
+    },
+};
 
 const CartContainer = () => {
-    const { cartItems, amount, total } = useSelector(store => store.cart);
+    const [isOpen, setIsOpen] = useState(false);
+    const { cartItems, amount, total, isLoading } = useSelector(store => store.cart);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(calcTotals());
+    }, [cartItems]);
+
+    useEffect(() => {
+        dispatch(getCartItems());
+    }, [])
+
 
     return (
         <StyledCartContainer>
-            {amount < 1 && (
+            {isLoading && (
+                <>
+                    <header>
+                        <h2>your bag</h2>
+                    </header>
+                    <div>Loading...</div>
+                </>
+            )}
+
+            {!isLoading && amount < 1 && (
                 <header className='cart-is-empty'>
                     <h2>your bag</h2>
                     <h4>is currently empty</h4>
                 </header>
             )}
 
-            {amount >= 1 && (
+            {!isLoading && amount >= 1 && (
                 <>
                     <header>
                         <h2>your bag</h2>
@@ -34,19 +80,19 @@ const CartContainer = () => {
                                     <span className="price">
                                         ${item.price}
                                     </span>
-                                    <button className="remove-btn" onClick={()=>{
+                                    <button className="remove-btn" onClick={() => {
                                         dispatch(removeItem(item.id));
                                     }}>
                                         remove
                                     </button>
                                 </div>
                                 <div className="set-amount">
-                                    <button onClick={()=>{
+                                    <button onClick={() => {
                                         dispatch(increase(item))
                                     }}>+1</button>
                                     <span>{item.amount}</span>
-                                    <button onClick={()=>{
-                                        if(item.amount === 1){
+                                    <button onClick={() => {
+                                        if (item.amount === 1) {
                                             dispatch(removeItem(item.id));
                                             return;
                                         }
@@ -64,12 +110,31 @@ const CartContainer = () => {
                                 total <span>${total}</span>
                             </h4>
                         </div>
-                        <button className='clear-btn' onClick={()=>{
-                            dispatch(clearCart());
+                        <button className='clear-btn' onClick={() => {
+                            setIsOpen(true);
                         }}>
                             clear cart
                         </button>
                     </footer>
+
+                    <CustomModal
+                        isOpen={isOpen}
+                        onRequestClose={() => setIsOpen(false)}
+                        style={customStyles}
+                        contentLabel="Example Modal"
+                        shouldCloseOnOverlayClick={true}
+                    >
+                        <div className='clear-message'>
+                            장바구니의 모든 아이템들을 삭제하시겠습니까?
+                        </div>
+                        <div className="modal-btns">
+                            <button className='delete' onClick={() => {
+                                dispatch(clearCart());
+                                setIsOpen(false);
+                            }}>삭제</button>
+                            <button className='cancel' onClick={() => setIsOpen(false)}>취소</button>
+                        </div>
+                    </CustomModal>
                 </>
             )}
         </StyledCartContainer>
@@ -175,8 +240,57 @@ const StyledCartContainer = styled.section`
             text-transform: uppercase;
         }
     }
-
-
 `;
+
+const CustomModal = styled(Modal)`
+    .clear-message{
+        font-size: 3rem;
+        margin-bottom: 8rem;
+    }
+
+    .modal-btns{
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+
+        button{
+            border-radius: 6px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            width: 40%;
+            transition: box-shadow .2s,-ms-transform .1s,-webkit-transform .1s,transform .1s;
+            outline: none;
+            cursor: pointer;
+            text-align: center;
+            padding: .8rem 0;
+        }
+
+        button:focus-visible{
+            box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+            transition: box-shadow .2s;
+        }
+
+        button:active{
+            transform: scale(.96);
+        }
+
+        .delete{
+            background: #FF4742;
+            border: 1px solid #FF4742;
+            color: #fff;
+        }
+
+        .cancle{
+            background-color: #FFFFFF;
+            border: 1px solid #222222;
+        }
+        
+        .cancle:active{
+            background-color: #F7F7F7;
+            border-color: #000000;
+        }
+
+    }
+`
 
 export default CartContainer;
