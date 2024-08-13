@@ -4,7 +4,7 @@ const getTodos = (req, res) => {
     try {
         const todos = db.todos;
         res.status(200).json({
-            message: "success",
+            message: "성공함",
             data: todos
         })
     } catch (error) {

@@ -10,12 +10,16 @@ export default function Todos() {
     if(todosIdsQuery.isError){
         return <div>error!</div>
     }
-
+    
     return (
         <>
-            {todosIdsQuery.data.map((id)=>{
-                return <p key={id}>{id}</p>
-            })}
+            <p>{todosIdsQuery.fetchStatus}</p>
+            <p>{todosIdsQuery.status}</p>
+            <ul>
+                {todosIdsQuery.data?.map((todoId:number)=>{
+                    return <li key={todoId}>{todoId}</li>
+                })}
+            </ul>
         </>
     )
 }

@@ -1,13 +1,21 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const {
     getTodos
 } = require("./controller");
 
 const app = express();
+dotenv.config();
 
 app.use(express.json());
-dotenv.config();
+app.use(
+    cors({
+      origin: "http://localhost:5173",
+      methods: ["GET", "POST"],
+      credentials: true,
+    })
+  );
 
 app.get("/todos", getTodos);
 
