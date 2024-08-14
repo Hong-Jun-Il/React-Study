@@ -1,88 +1,23 @@
 module.exports = {
   "todos": [
     {
-      "checked": true,
-      "title": "title6",
-      "description": "desc6",
-      "id": 6
+      "checked": false,
+      "title": "title1",
+      "description": "desc1",
+      "id": 1
     },
     {
       "checked": true,
-      "title": "title7",
-      "description": "desc7",
-      "id": 7
+      "title": "title2",
+      "description": "desc2",
+      "id": 2
     },
     {
-      "checked": true,
-      "title": "title8",
-      "description": "desc8",
-      "id": 8
+      "checked": false,
+      "title": "title3",
+      "description": "desc3",
+      "id": 3
     },
-    {
-      "title": "test",
-      "description": "test",
-      "id": 9,
-      "checked": true
-    },
-    {
-      "title": "test",
-      "description": "",
-      "id": 10,
-      "checked": true
-    },
-    {
-      "title": "test",
-      "description": "test",
-      "id": 11,
-      "checked": true
-    },
-    {
-      "title": "test",
-      "description": "test",
-      "id": 12,
-      "checked": true
-    },
-    {
-      "title": "test",
-      "description": "test",
-      "id": 13,
-      "checked": true
-    },
-    {
-      "title": "test",
-      "description": "test",
-      "id": 14
-    },
-    {
-      "title": "test",
-      "description": "test",
-      "id": 15
-    },
-    {
-      "title": "new todo",
-      "description": "new todo",
-      "id": 16
-    },
-    {
-      "title": "new todo",
-      "description": "new todo",
-      "id": 17
-    },
-    {
-      "title": "new todo",
-      "description": "new todo",
-      "id": 18
-    },
-    {
-      "title": "new todo",
-      "description": "new todo",
-      "id": 19
-    },
-    {
-      "title": "new todo",
-      "description": "new todo",
-      "id": 20
-    }
   ],
   "projects": [
     { "id": 1, "name": "project1" },

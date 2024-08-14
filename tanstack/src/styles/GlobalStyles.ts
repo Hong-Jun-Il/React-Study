@@ -32,4 +32,8 @@ export const GlobalStyle = createGlobalStyle`
     button{
         cursor: pointer;
     }
+
+    button:disabled{
+        pointer-events: none;
+    }
 `;
