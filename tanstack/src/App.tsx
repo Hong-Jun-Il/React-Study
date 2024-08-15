@@ -1,11 +1,11 @@
 import styled from "styled-components"
-import Todos from "./components/Todos";
+import TanstackProjects from "./components/TanstackProjects";
 
 function App() {
   
   return (
     <StyledRoot>
-      <Todos />
+      <TanstackProjects />
     </StyledRoot>
   )
 }

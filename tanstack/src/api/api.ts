@@ -1,5 +1,6 @@
 import axios from "axios";
 import { TodoInputType, TodoResponseType, TodoType } from "../types/TodoType";
+import { ProjectResponseType, ProjectType } from "../types/ProjectType";
 
 const BASE_URL = "http://localhost:8123";
 
@@ -70,5 +71,21 @@ export const deleteTodo = async (id: number) => {
         console.log(response.data);
     } catch (error) {
         console.log(error);
+    }
+}
+
+export const getProjects = async(page: number): Promise<ProjectType[]>=>{
+    try {
+        const response = await axiosInstance.get<ProjectResponseType<ProjectType>>("/getprojects", {
+            params: {
+                page,
+                limit: 3
+            }
+        })
+
+        return response.data.data;
+    } catch (error) {
+        console.log(error);
+        throw error
     }
 }

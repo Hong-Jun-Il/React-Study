@@ -6,7 +6,8 @@ const {
   getTodo,
   toggleCompleteTodo,
   createTodo,
-  deleteTodo
+  deleteTodo,
+  getProjects
 } = require("./controller");
 
 const app = express();
@@ -26,6 +27,7 @@ app.get("/gettodo", getTodo);
 app.put("/updatetodo", toggleCompleteTodo);
 app.post("/createtodo", createTodo);
 app.delete("/deletetodo", deleteTodo);
+app.get("/getprojects", getProjects);
 
 app.listen(process.env.PORT, () => {
   console.log(`server is on ${process.env.PORT}`);
