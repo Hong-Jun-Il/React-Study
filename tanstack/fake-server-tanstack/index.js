@@ -2,7 +2,11 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const {
-  
+  getTodoIds,
+  getTodo,
+  toggleCompleteTodo,
+  createTodo,
+  deleteTodo
 } = require("./controller");
 
 const app = express();
@@ -16,6 +20,12 @@ app.use(
     credentials: true,
   })
 );
+
+app.get("/gettodoids", getTodoIds);
+app.get("/gettodo", getTodo);
+app.put("/updatetodo", toggleCompleteTodo);
+app.post("/createtodo", createTodo);
+app.delete("/deletetodo", deleteTodo);
 
 app.listen(process.env.PORT, () => {
   console.log(`server is on ${process.env.PORT}`);

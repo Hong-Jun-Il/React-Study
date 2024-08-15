@@ -1,29 +1,16 @@
 import axios from "axios";
-import { Todo, TodoResponse } from "../types/todo";
+import { TodoInputType, TodoResponseType, TodoType } from "../types/TodoType";
 
-export const BASE_URL = "http://localhost:8123";
+const BASE_URL = "http://localhost:8123";
 
 export const axiosInstance = axios.create({
-    baseURL: BASE_URL
+    baseURL: BASE_URL,
+    withCredentials: true
 })
 
-export const getTodosIds = async (): Promise<number[]> => {
+export const getTodoIds = async (): Promise<number[]> => {
     try {
-        const response = await axiosInstance.get<TodoResponse<Todo[]>>("/todoids");
-        return response.data.data.map(todo => todo.id ?? 0);
-    } catch (e: unknown) {
-        console.error(e);
-        throw e;
-    }
-}
-
-export const getTodo = async (id: number): Promise<Todo> => {
-    try {
-        const response = await axiosInstance.get<TodoResponse<Todo>>("/todos", {
-            params: {
-                id
-            }
-        });
+        const response = await axiosInstance.get<TodoResponseType<number[]>>("/gettodoids");
 
         return response.data.data
     } catch (e: unknown) {
@@ -32,39 +19,56 @@ export const getTodo = async (id: number): Promise<Todo> => {
     }
 }
 
-export const createTodo = async (data: Todo) => {
-    try{
-        const response = await axiosInstance.post("/createtodo", data);
+export const getTodo = async (id: number): Promise<TodoType> => {
+    try {
+        const response = await axiosInstance.get<TodoResponseType<TodoType>>("/gettodo", {
+            params: {
+                id
+            }
+        })
 
-        console.log(response.data);
-    }catch(e){
+        return response.data.data;
+    } catch (e) {
         console.error(e);
         throw e
     }
 }
 
-export const updateTodo = async(data: Todo) => {
-    try{
-        const response = await axiosInstance.put("/completetodo", data);
-        
-        console.log(response.data);
-    }catch(e){
-        console.error(e);
-        throw e;
-    }
-}
-
-export const deleteTodo = async(data: Todo)=>{
+export const toggleUpdateTodo = async (id: number) => {
     try {
-        const response = await axiosInstance.delete("/deletetodo", {
-            params: {
-                id: data.id!
-            }
+        const response = await axiosInstance.put("/updatetodo", {
+            id
         });
 
         console.log(response.data);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const createTodo = async (data: TodoInputType) => {
+    try {
+        const response = await axiosInstance.post("/createtodo", {
+            title: data.title,
+            description: data.description
+        })
+
+        console.log(response.data);
     } catch (error) {
-        console.error(error);
-        throw error
+        console.log(error);
+    }
+}
+
+export const deleteTodo = async (id: number) => {
+    try {
+        const response = await axiosInstance.delete("/deletetodo", {
+            params: {
+                id
+            }
+        })
+
+        console.log(response.data);
+    } catch (error) {
+        console.log(error);
     }
 }
