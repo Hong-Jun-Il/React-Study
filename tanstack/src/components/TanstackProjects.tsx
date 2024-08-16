@@ -12,26 +12,35 @@ export default function TanstackProjects() {
     const { data, isPlaceholderData } = useGetProjects(currentPage);
 
     const handlePageChange = (newPage: number) => {
+        if(newPage < 1 || newPage > (data?.totalPages ?? 1)){
+            return;
+        }
         setCurrentPage(newPage);
         navigate(`/project?page=${newPage}`);
     }
 
     return (
         <StyledProducts>
-            {data?.map((project: ProjectType) => {
+            {data?.items?.map((project: ProjectType) => {
                 return <li key={project?.id}>
                     {project?.name}
                 </li>
             })}
 
             <StyledPaginationBtn>
-                <button onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}>이전</button>
-                <span>{currentPage}</span>
+                <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>이전</button>
+                <ul>
+                    {Array.from({ length: data?.totalPages ?? 0 }, (_, i) => i + 1).map((page: number) => {
+                        return <li key={page}>
+                            <button onClick={()=>handlePageChange(page)}>{page}</button>
+                        </li>
+                    })}
+                </ul>
                 <button onClick={() => {
                     if (!isPlaceholderData) {
                         handlePageChange(currentPage + 1);
                     }
-                }} disabled={isPlaceholderData}>다음</button>
+                }} disabled={isPlaceholderData || currentPage === data?.totalPages}>다음</button>
             </StyledPaginationBtn>
         </StyledProducts>
     )
@@ -53,6 +62,8 @@ const StyledPaginationBtn = styled.div`
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    width: 100px;
-    justify-content: space-between;
+
+    ul{
+        display: flex;
+    }
 `;

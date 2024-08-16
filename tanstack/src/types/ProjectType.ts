@@ -5,5 +5,6 @@ export type ProjectType = {
 
 export type ProjectResponseType<T> = {
     message: string,
-    data: T[]
+    items: T[],
+    totalPages: number
 }

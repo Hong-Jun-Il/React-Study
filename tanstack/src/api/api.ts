@@ -74,16 +74,16 @@ export const deleteTodo = async (id: number) => {
     }
 }
 
-export const getProjects = async(page: number): Promise<ProjectType[]>=>{
+export const getProjects = async (page: number): Promise<{ totalPages: number, items: ProjectType[] }> => {
     try {
         const response = await axiosInstance.get<ProjectResponseType<ProjectType>>("/getprojects", {
             params: {
                 page,
-                limit: 3
+                limit: 5
             }
         })
 
-        return response.data.data;
+        return { totalPages: response.data.totalPages, items: response.data.items };
     } catch (error) {
         console.log(error);
         throw error

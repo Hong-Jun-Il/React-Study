@@ -118,7 +118,8 @@ const getProjects = (req, res) => {
         
         res.status(200).json({
             message: "project 조회에 성공함",
-            data: slicedProjectsData,
+            items: slicedProjectsData,
+            totalPages: Math.ceil(projects.length / limit)
         })
     } catch (error) {
         res.status(400).json({
