@@ -34,7 +34,7 @@ export default function TanstackProjects() {
             })}
 
             <StyledPaginationBtnsWrapper>
-                <button onClick={() => handlePageChange(startPage - btnsPerGroup)} disabled={startPage === 1}>이전</button>
+                <button onClick={() => handlePageChange(startPage - 1)} disabled={startPage === 1}>이전</button>
                 <ul>
                     {PaginationBtns.map((page: number) => {
                         return <StyledPaginationBtn key={page} $isCurrent={currentPage === page} onClick={()=>handlePageChange(page)}>
