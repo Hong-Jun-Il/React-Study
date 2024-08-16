@@ -79,7 +79,7 @@ export const getProjects = async (page: number): Promise<{ totalPages: number, i
         const response = await axiosInstance.get<ProjectResponseType<ProjectType>>("/getprojects", {
             params: {
                 page,
-                limit: 5
+                limit: 3
             }
         })
 
