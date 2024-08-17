@@ -1,14 +1,16 @@
 import styled from "styled-components"
-import TanstackProjects from "./components/TanstackProjects";
-import { Route, Routes } from "react-router-dom";
+// import TanstackProjects from "./components/TanstackProjects";
+// import { Route, Routes } from "react-router-dom";
+import Products from "./components/Products";
 
 function App() {
   
   return (
     <StyledRoot>
-      <Routes>
+      {/* <Routes>
         <Route path = "/project" element={<TanstackProjects />} />
-      </Routes>
+      </Routes> */}
+      <Products />
     </StyledRoot>
   )
 }

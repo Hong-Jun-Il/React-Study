@@ -18,3 +18,6 @@
 
 ## useQuery의 isPlaceholderData란
 > * 데이터가 아직 업데이트가 되지 않았을 때(백그라운드에서 가져온 데이터를 사용했을 때) true 상태임
+
+## useInfiniteQuery의 인자
+> * getNextPageParam과 getPreviousPageParam에서 return하는 값을 객체 형식으로 인자로 전달함: { PageParam }

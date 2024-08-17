@@ -1,6 +1,7 @@
 import axios from "axios";
 import { TodoInputType, TodoResponseType, TodoType } from "../types/TodoType";
 import { ProjectResponseType, ProjectType } from "../types/ProjectType";
+import { ProductResponseType, ProductsResponseType, ProductType } from "../types/ProductType";
 
 const BASE_URL = "http://localhost:8123";
 
@@ -29,7 +30,7 @@ export const getTodo = async (id: number): Promise<TodoType> => {
         })
 
         return response.data.data;
-    } catch (e) {
+    } catch (e: unknown) {
         console.error(e);
         throw e
     }
@@ -42,7 +43,7 @@ export const toggleUpdateTodo = async (id: number) => {
         });
 
         console.log(response.data);
-    } catch (e) {
+    } catch (e: unknown) {
         console.log(e);
     }
 }
@@ -69,7 +70,7 @@ export const deleteTodo = async (id: number) => {
         })
 
         console.log(response.data);
-    } catch (error) {
+    } catch (error: unknown) {
         console.log(error);
     }
 }
@@ -84,8 +85,39 @@ export const getProjects = async (page: number): Promise<{ totalPages: number, i
         })
 
         return { totalPages: response.data.totalPages, items: response.data.items };
-    } catch (error) {
+    } catch (error: unknown) {
         console.log(error);
         throw error
+    }
+}
+
+export const getProducts = async ({ pageParam }: { pageParam: number }): Promise<ProductType[]> => {
+    try {
+        const response = await axiosInstance.get<ProductsResponseType<ProductType[]>>("/getproducts", {
+            params: {
+                page: pageParam,
+                limit: 5,
+            }
+        });
+
+        return response.data.products;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+export const getProduct = async (id: number): Promise<ProductType> => {
+    try {
+        const response = await axiosInstance.get<ProductResponseType<ProductType>>("/getproduct", {
+            params: {
+                id
+            }
+        });
+
+        return response.data.product;
+    } catch (error) {
+        console.log(error);
+        throw error;
     }
 }

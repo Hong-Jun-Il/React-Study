@@ -112,10 +112,10 @@ const getProjects = (req, res) => {
         const page = Number(req.query.page) || 1;
         const limit = Number(req.query.limit) || 5;
         const start = (page - 1) * limit;
-        const end = (page - 1) * limit + limit;
+        const end = start + limit;
 
         const slicedProjectsData = projects.slice(start, end)
-        
+
         res.status(200).json({
             message: "project 조회에 성공함",
             items: slicedProjectsData,
@@ -129,11 +129,59 @@ const getProjects = (req, res) => {
     }
 }
 
+const getProducts = (req, res) => {
+    const products = db.products;
+
+    try {
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 5;
+
+        const start = (page - 1) * limit;
+        const end = start + limit;
+
+        const slicedProductData = products.slice(start, end);
+
+        res.status(200).json({
+            message: "products 전송 성공",
+            products: slicedProductData
+        })
+    } catch (error) {
+        res.status(400).json({
+            message: "products 조회에 실패함",
+            error
+        })
+    }
+}
+
+const getProduct = (req, res) => {
+    const products = db.products;
+
+    try {
+        const { id: targetId } = req.query;
+
+        const targetProductIndex = products.findIndex(product => product.id === Number(targetId));
+
+        const target = products[targetProductIndex];
+
+        res.status(200).json({
+            message: "get product 성공",
+            product: target
+        })
+    } catch (e) {
+        res.status(400).json({
+            message: "get product 에러남",
+            error: e
+        })
+    }
+}
+
 module.exports = {
     getTodoIds,
     getTodo,
     toggleCompleteTodo,
     createTodo,
     deleteTodo,
-    getProjects
+    getProjects,
+    getProducts,
+    getProduct
 }
