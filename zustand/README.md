@@ -21,7 +21,7 @@
 > * tsconfig.app.json 안의 compilerOptions의 설정들.
 > * baseUrl 설정은 모듈 해석을 위한 기본 경로를 설정
 > * baseUrl을 "." 으로 설정할 경우 import의 경로가 프로젝트의 루트 디렉터리를 기준으로 해석됨 
-> ![alt text](image-1.png)
+> ![alt text](image.png)
 >
 > * ex) 위 사진의 Button.tsx에서 helpers.ts를 import 하려면 "../utils/helpers"로 접근해야 하지만 baseUrl이 "." 으로 설정될 경우 "src/utils/helpers"로 접근 가능
 > * paths 설정은 모듈 경로에 대한 별칭을 설정함
