@@ -1,4 +1,4 @@
-import { create, StateCreator } from "zustand";
+import { StateCreator } from "zustand";
 
 type UserState = {
     userName: string,
@@ -13,19 +13,12 @@ type UserActions = {
 
 export type UserSlice = UserState & UserActions;
 
-export const createUserSlice: StateCreator<UserSlice, [], [], UserSlice> = (set) => ({
+export const createUserSlice: StateCreator<UserSlice, [["zustand/immer", never]], [], UserSlice> = (set) => ({
     address: "",
     age: 0,
     fullName: "",
     userName: "",
-    setAddress: (address) => set(() => ({
-        address
-    }))
+    setAddress: (address) => set((state)=>{
+        state.address = address;
+    })
 })
-
-const useCountStore = create<{ nested: { count: number }; inc: () => void }>((set) => ({
-    nested: { count: 0 },
-    inc: () => set((state) => ({
-        nested: { ...state.nested, count: state.nested.count + 1 }
-    }))
-}))
