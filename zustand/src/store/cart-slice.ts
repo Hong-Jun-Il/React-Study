@@ -36,7 +36,7 @@ export const createCartSlice: StateCreator<CartSlice, [["zustand/immer", never]]
     decQty: (productId: string) => set((state) => {
         const foundIndex = state.products.findIndex((product) => product.id === productId);
 
-        if (foundIndex === -1) {
+        if (foundIndex !== -1) {
             if (state.products[foundIndex].qty === 1) {
                 state.products.splice(foundIndex, 1);
             }

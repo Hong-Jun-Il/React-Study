@@ -18,7 +18,7 @@ export const createUserSlice: StateCreator<UserSlice, [["zustand/immer", never]]
     age: 0,
     fullName: "",
     userName: "",
-    setAddress: (address) => set((state)=>{
+    setAddress: (address) => set((state) => {
         state.address = address;
     })
 })
