@@ -4,6 +4,7 @@ import { PRODUCTS_DATA } from "./lib/mockData";
 import { Card, CardContent, CardFooter, CardHeader } from "./components/ui/card";
 import { Button } from "./components/ui/button";
 import ChangeQtyBtn from "./components/ChangeQtyBtn";
+import Cart from "./components/Cart";
 
 function App() {
   const addProduct = useStore((state) => state.addProduct);
@@ -11,6 +12,9 @@ function App() {
 
   return (
     <main className="space-y-2 dark h-screen bg-background max-w-sm mx-auto mt-2">
+      <div>
+        <Cart />
+      </div>
       <div className="text-2xl">Products:</div>
       <div className="space-y-2">
         {PRODUCTS_DATA.map((product) => (

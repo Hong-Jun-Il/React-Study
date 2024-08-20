@@ -7,7 +7,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
 import ChangeQtyBtn from './ChangeQtyBtn';
 
-const Cart = () => {
+const User = () => {
 
     const { reset, products, removeProduct, total } = useStore(useShallow((state) => ({
         reset: state.reset,
@@ -25,7 +25,7 @@ const Cart = () => {
             </PopoverTrigger>
             <PopoverContent className='overflow-y-auto space-y-2 w-96'>
                 <div className="flex gap-2 text-lg items-center">
-                    <h1>Cart:</h1>
+                    <h1>User:</h1>
                     <Button onClick={reset} variant="destructive" size="icon">
                         <CircleX />
                     </Button>
@@ -54,4 +54,4 @@ const Cart = () => {
     );
 };
 
-export default Cart;
+export default User;
