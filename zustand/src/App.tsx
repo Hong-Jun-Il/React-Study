@@ -5,6 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "./components/ui/card"
 import { Button } from "./components/ui/button";
 import ChangeQtyBtn from "./components/ChangeQtyBtn";
 import Cart from "./components/Cart";
+import User from "./components/User";
 
 function App() {
   const addProduct = useStore((state) => state.addProduct);
@@ -12,7 +13,8 @@ function App() {
 
   return (
     <main className="space-y-2 dark h-screen bg-background max-w-sm mx-auto mt-2">
-      <div>
+      <div className="flex justify-between">
+        <User />
         <Cart />
       </div>
       <div className="text-2xl">Products:</div>
@@ -24,13 +26,13 @@ function App() {
             <CardFooter>
               {cartProducts.find((item) => item.id === product.id) ? (
                 <ChangeQtyBtn productId={product.id} />
-              ): (
-                  <Button onClick = { ()=> addProduct(product) }>Add to Cart</Button>
+              ) : (
+                <Button onClick={() => addProduct(product)}>Add to Cart</Button>
               )}
-          </CardFooter>
+            </CardFooter>
           </Card>
         ))}
-    </div>
+      </div>
     </main >
   )
 }

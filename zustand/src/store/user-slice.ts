@@ -4,7 +4,8 @@ type UserState = {
     userName: string,
     fullName: string,
     age: number,
-    address: string
+    address: string,
+    fetchUser: () => Promise<void>
 };
 
 type UserActions = {
@@ -20,5 +21,17 @@ export const createUserSlice: StateCreator<UserSlice, [["zustand/immer", never]]
     userName: "",
     setAddress: (address) => set((state) => {
         state.address = address;
-    })
+    }),
+    fetchUser: async()=>{
+        await new Promise((resolve)=> (
+            setTimeout(resolve, 1000)
+        ))
+        set({
+            address: "",
+            fullName: "홍준일",
+            userName: "준일",
+            age: 24
+        })
+    }
+
 })

@@ -9,11 +9,12 @@ import ChangeQtyBtn from './ChangeQtyBtn';
 
 const Cart = () => {
 
-    const { reset, products, removeProduct, total } = useStore(useShallow((state) => ({
+    const { reset, products, removeProduct, total, address } = useStore(useShallow((state) => ({
         reset: state.reset,
         products: state.products,
         removeProduct: state.removeProduct,
-        total: state.total
+        total: state.total,
+        address: state.address
     })))
 
     return (
@@ -49,6 +50,7 @@ const Cart = () => {
                     ))}
                 </div>
                 <p>Total: {total}</p>
+                <p>Address: {address}</p>
             </PopoverContent>
         </Popover>
     );
