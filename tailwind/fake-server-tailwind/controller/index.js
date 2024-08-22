@@ -11,7 +11,6 @@ const getItems = (req, res)=>{
         const end = start + limit;
         
         const target = items.slice(start, end);
-        console.log(page, limit);
 
         res.status(200).json({
             message: "get items 성공",
