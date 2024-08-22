@@ -12,6 +12,8 @@ type CartActionType = {
     removeProduct: (productId: number) => void;
     incQty: (productId: number) => void;
     decQty: (productId: number) => void;
+    reset: () => void;
+    setTotal: () => void;
 }
 
 export type CartSliceType = CartStateType & CartActionType;
@@ -51,5 +53,14 @@ export const createCartSlice: StateCreator<CartSliceType, [["zustand/immer", nev
                 state.cartProducts[targetIndex].qty -= 1;
             }
         }
+    }),
+    reset: () => set(() => initialState),
+    setTotal: () => set((state) => {
+        state.total = state.cartProducts.reduce((acc, cur) => {
+            acc += cur.price * cur.qty;
+
+            return acc;
+        }, 0)
     })
+
 })

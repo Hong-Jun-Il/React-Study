@@ -13,7 +13,7 @@ const Items = () => {
 
     return (
         <section className="flex flex-col items-center">
-            <ul className="w-screen min-h-screen grid grid-cols-2 gap-1">
+            <ul className="w-screen grid grid-cols-2 gap-1">
                 {itemsQuery.data?.pages?.flat(2).map((item) => (
                     <li key={item?.id} className="
                     flex flex-col items-center justify-center  
