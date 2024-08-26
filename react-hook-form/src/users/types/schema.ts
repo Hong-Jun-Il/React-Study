@@ -7,7 +7,7 @@ export const schema = z.object({
     .string()
     .min(1, { message: "Email is required" })
     .refine((text) => patterns.email.test(text), {
-      message: "Email is not valid",
+      message: "Email is not valid",  
     }),
   states: z.array(z.string()).min(1).max(2),
 });
