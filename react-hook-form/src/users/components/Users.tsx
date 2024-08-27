@@ -23,7 +23,14 @@ export default function Users() {
         error={!!errors.email}
         helperText={errors.email?.message}
       />
-      <RHFAutocomplete<SchemaType> name="states" />
+      <RHFAutocomplete<SchemaType>
+        name="states"
+        label="State"
+        options={[
+          { id: "1", label: "옵션1" },
+          { id: "2", label: "옵션2" },
+        ]}
+      />
     </Stack>
   );
 }

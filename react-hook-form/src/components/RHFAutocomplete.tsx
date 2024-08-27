@@ -1,4 +1,6 @@
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, Box, Checkbox, TextField } from "@mui/material";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { Controller, FieldValues, Path, useFormContext } from "react-hook-form";
 import { OptionType } from "../users/types/option";
 
@@ -43,6 +45,17 @@ export function RHFAutocomplete<T extends FieldValues>({
               helperText={error?.message}
               label={label}
             />
+          )}
+          renderOption={(props, option, { selected }) => (
+            <Box component="li" {...props} key={option.id}>
+              <Checkbox
+                icon={<CheckBoxOutlineBlankIcon />}
+                checkedIcon={<CheckBoxIcon />}
+                checked={selected}
+                key={option.id}
+              />
+              {option.label}
+            </Box>
           )}
         />
       )}
