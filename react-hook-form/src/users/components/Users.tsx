@@ -7,7 +7,6 @@ import { useStates } from "../services/queries";
 
 export default function Users() {
   const statesQuery = useStates();
-  console.log(statesQuery)
 
   const {
     register,
