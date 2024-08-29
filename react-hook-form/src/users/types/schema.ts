@@ -10,6 +10,7 @@ export const schema = z.object({
       message: "Email is not valid",
     }),
   states: z.array(z.string()).min(1).max(2),
+  laguagesSpoken: z.array(z.string()),
 });
 
 export type SchemaType = z.infer<typeof schema>;
@@ -18,4 +19,5 @@ export const defaultValues: SchemaType = {
   email: "",
   name: "",
   states: [],
+  laguagesSpoken: [],
 };
