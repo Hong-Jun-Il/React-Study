@@ -11,6 +11,7 @@ export const schema = z.object({
     }),
   states: z.array(z.string()).min(1).max(2),
   laguagesSpoken: z.array(z.string()),
+  gender: z.string().min(1, { message: "성별을 선택해주세요" }),
 });
 
 export type SchemaType = z.infer<typeof schema>;
@@ -20,4 +21,5 @@ export const defaultValues: SchemaType = {
   name: "",
   states: [],
   laguagesSpoken: [],
+  gender: "",
 };
