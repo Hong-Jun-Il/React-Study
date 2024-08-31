@@ -19,7 +19,7 @@ export function RHFRadioGroup<T extends FieldValues>({
   options,
   label,
 }: PropsType<T>) {
-  const { control } = useFormContext();
+  const { control } = useFormContext<T>();
 
   return (
     <Controller
