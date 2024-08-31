@@ -1,6 +1,13 @@
 import { Controller, FieldValues, Path, useFormContext } from "react-hook-form";
 import { OptionType } from "../users/types/option";
-import { FormControl, FormLabel } from "@mui/material";
+import {
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormHelperText,
+  FormLabel,
+} from "@mui/material";
 
 type PropsType<T extends FieldValues> = {
   name: Path<T>;
@@ -22,6 +29,31 @@ export function RHFCheckbox<T extends FieldValues>({
       render={({ field: { value, onChange }, fieldState: { error } }) => (
         <FormControl error={!!error}>
           <FormLabel>{label}</FormLabel>
+          <FormGroup>
+            {options?.map((option) => (
+              <FormControlLabel
+                key={option.id}
+                control={
+                  <Checkbox
+                    checked={value.includes(option.id)}
+                    onChange={() => {
+                      if (value.includes(option.id)) {
+                        onChange(
+                          (value as string[]).filter(
+                            (item) => item !== option.id,
+                          ),
+                        );
+                      } else {
+                        onChange([...value, option.id]);
+                      }
+                    }}
+                  />
+                }
+                label={option?.label}
+              />
+            ))}
+          </FormGroup>
+          <FormHelperText>{error?.message}</FormHelperText>
         </FormControl>
       )}
     ></Controller>

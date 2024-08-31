@@ -1,7 +1,12 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const { getStates, getLanguages, getGenders } = require("./controller");
+const {
+  getStates,
+  getLanguages,
+  getGenders,
+  getSkills,
+} = require("./controller");
 
 const app = express();
 dotenv.config();
@@ -18,6 +23,7 @@ app.use(
 app.get("/getstates", getStates);
 app.get("/getlanguages", getLanguages);
 app.get("/getgenders", getGenders);
+app.get("/getskills", getSkills);
 
 app.listen(process.env.PORT, () => {
   console.log(`server is on ${process.env.PORT}`);

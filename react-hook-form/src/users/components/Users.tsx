@@ -3,14 +3,21 @@ import { Stack, TextField } from "@mui/material";
 import { SchemaType } from "../types/schema";
 import { RHFAutocomplete } from "../../components/RHFAutocomplete";
 import { useEffect } from "react";
-import { useGenders, useLanguages, useStates } from "../services/queries";
+import {
+  useGenders,
+  useLanguages,
+  useSkills,
+  useStates,
+} from "../services/queries";
 import { RHFToggleBtnGroup } from "../../components/RHFToggleBtnGroup";
 import { RHFRadioGroup } from "../../components/RHFRadioGroup";
+import { RHFCheckbox } from "../../components/RHFCheckBox";
 
 export default function Users() {
   const statesQuery = useStates();
   const languagesQuery = useLanguages();
   const gendersQuery = useGenders();
+  const skillsQuery = useSkills();
 
   const {
     register,
@@ -54,6 +61,7 @@ export default function Users() {
         label="Genders"
         options={gendersQuery.data}
       />
+      <RHFCheckbox name="skills" label="Skills" options={skillsQuery.data} />
       <input type="submit" />
     </Stack>
   );

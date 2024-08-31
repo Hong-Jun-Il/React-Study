@@ -48,8 +48,25 @@ const getGenders = (req, res) => {
   }
 };
 
+const getSkills = (req, res) => {
+  const skills = db.skills;
+
+  try {
+    res.status(200).json({
+      message: "get skills 성공",
+      skills,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "get skills 실패",
+      error,
+    });
+  }
+};
+
 module.exports = {
   getStates,
   getLanguages,
   getGenders,
+  getSkills,
 };
