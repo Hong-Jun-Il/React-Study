@@ -5,16 +5,16 @@ import Users from "./Users";
 import { DevTool } from "@hookform/devtools";
 
 export function UsersProvider() {
-  const methods = useForm<SchemaType>({
-    mode: "all",
-    resolver: zodResolver(schema),
-    defaultValues,
-  });
+	const methods = useForm<SchemaType>({
+		mode: 'all',
+		resolver: zodResolver(schema),
+		defaultValues,
+	});
 
-  return (
-    <FormProvider {...methods}>
-      <Users />
-      <DevTool control={methods.control} />
-    </FormProvider>
-  );
+	return (
+		<FormProvider {...methods}>
+			<Users />
+			<DevTool control={methods.control} />
+		</FormProvider>
+	);
 }
