@@ -6,6 +6,8 @@ const {
   getLanguages,
   getGenders,
   getSkills,
+  getUsers,
+  getUser,
 } = require("./controller");
 
 const app = express();
@@ -24,6 +26,8 @@ app.get("/getstates", getStates);
 app.get("/getlanguages", getLanguages);
 app.get("/getgenders", getGenders);
 app.get("/getskills", getSkills);
+app.get("/getusers", getUsers);
+app.get("/getuser", getUser);
 
 app.listen(process.env.PORT, () => {
   console.log(`server is on ${process.env.PORT}`);

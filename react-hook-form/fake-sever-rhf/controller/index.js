@@ -64,9 +64,35 @@ const getSkills = (req, res) => {
   }
 };
 
+const getUsers = (req, res) => {
+  const users = db.users;
+
+  try {
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+const getUser = (req, res) => {
+  const users = db.users;
+
+  try {
+    const {id: targetId} = req.query;
+
+    const targetUser = users.find(user=>String(user.id)===targetId);
+
+    res.status(200).json(targetUser);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+}
+
 module.exports = {
   getStates,
   getLanguages,
   getGenders,
   getSkills,
+  getUsers,
+  getUser
 };

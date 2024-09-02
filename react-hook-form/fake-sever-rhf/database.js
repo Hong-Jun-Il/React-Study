@@ -58,7 +58,7 @@ module.exports = {
   users: [
     {
       email: "james@gmail.com",
-      formerEmploymentPeriod: [
+      formetEmploymentPeriod: [
         "Thu Jan 18 2024 01:06:58 GMT+0330 (Iran Standard Time)",
         "Thu Jan 18 2024 01:06:58 GMT+0330 (Iran Standard Time)",
       ],
@@ -83,7 +83,7 @@ module.exports = {
     },
     {
       email: "Robert@gmail.com",
-      formerEmploymentPeriod: [
+      formetEmploymentPeriod: [
         "Wed Aug 09 2023 00:00:00 GMT+0330 (Iran Standard Time)",
         "Thu Jan 18 2024 01:20:23 GMT+0330 (Iran Standard Time)",
       ],
@@ -111,7 +111,7 @@ module.exports = {
     },
     {
       email: "john@gmail.com",
-      formerEmploymentPeriod: [
+      formetEmploymentPeriod: [
         "Sat Jan 20 2024 18:12:01 GMT+0330 (Iran Standard Time)",
         "Sat Jan 20 2024 18:12:01 GMT+0330 (Iran Standard Time)",
       ],
