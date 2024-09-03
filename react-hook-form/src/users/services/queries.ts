@@ -93,5 +93,6 @@ export function useUser(id: string) {
         throw error;
       }
     },
+    enabled: !!id
   });
 }

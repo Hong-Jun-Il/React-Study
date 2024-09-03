@@ -78,15 +78,33 @@ const getUser = (req, res) => {
   const users = db.users;
 
   try {
-    const {id: targetId} = req.query;
+    const { id: targetId } = req.query;
 
-    const targetUser = users.find(user=>String(user.id)===targetId);
+    const targetUser = users.find((user) => String(user.id) === targetId);
 
     res.status(200).json(targetUser);
   } catch (error) {
     res.status(400).json(error);
   }
-}
+};
+
+const submit = (req, res) => {
+  const users = db.users;
+
+  try {
+    const data = req.body;
+    users.push({...data, id: (users[users.length - 1].id + 1)});
+
+    res.status(200).json({
+      message: "submit 성공",
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "submit 실패함",
+      error,
+    });
+  }
+};
 
 module.exports = {
   getStates,
@@ -94,5 +112,6 @@ module.exports = {
   getGenders,
   getSkills,
   getUsers,
-  getUser
+  getUser,
+  submit,
 };

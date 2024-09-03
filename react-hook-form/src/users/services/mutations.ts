@@ -8,8 +8,12 @@ export function useCreateUser() {
   return useMutation({
     mutationFn: (data: SchemaType) => submitForm(data),
 
-    onSuccess: async()=>{
-      await queryClient.invalidateQueries()
-    }
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ["users"],
+      });
+
+      alert("User created!");
+    },
   });
 }
