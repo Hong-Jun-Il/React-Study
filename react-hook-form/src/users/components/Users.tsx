@@ -34,7 +34,7 @@ import { RHFDateRangePicker } from "../../components/RHFDateRangePicker";
 import { RHFSlider } from "../../components/RHFSlider";
 import { RHFSwitch } from "../../components/RHFSwitch";
 import { RHFTextField } from "../../components/RHFTextField";
-import { useCreateUser } from "../services/mutations";
+import { useCreateUser, useEditUser } from "../services/mutations";
 
 export default function Users() {
   const statesQuery = useStates();
@@ -88,11 +88,13 @@ export default function Users() {
   };
 
   const createUserMutation = useCreateUser();
+  const editUserMutation = useEditUser();
 
   const onSubmit: SubmitHandler<SchemaType> = (data) => {
     if (variant === "create") {
       createUserMutation.mutate(data);
     } else {
+      editUserMutation.mutate(data);
     }
   };
 
@@ -172,12 +174,13 @@ export default function Users() {
           </Stack>
 
           <Stack sx={{ flexDirection: "row", justifyContent: "space-between" }}>
-            <Button type="submit">New User</Button>
+            <Button variant="contained" type="submit">
+              {variant === "create" ? "New User" : "Edit User"}
+            </Button>
             <Button onClick={handleReset}>Reset</Button>
           </Stack>
         </Stack>
       </Stack>
-      <input type="submit" />
     </Container>
   );
 }

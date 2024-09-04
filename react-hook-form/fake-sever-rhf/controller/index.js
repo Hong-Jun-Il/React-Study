@@ -93,7 +93,7 @@ const submit = (req, res) => {
 
   try {
     const data = req.body;
-    users.push({...data, id: (users[users.length - 1].id + 1)});
+    users.push({ ...data, id: users[users.length - 1].id + 1 });
 
     res.status(200).json({
       message: "submit 성공",
@@ -101,6 +101,32 @@ const submit = (req, res) => {
   } catch (error) {
     res.status(400).json({
       message: "submit 실패함",
+      error,
+    });
+  }
+};
+
+const editUser = (req, res) => {
+  const users = db.users;
+
+  try {
+    const { id: targetId } = req.params;
+    const data = req.body;
+
+    const targetUserIndex = users.findIndex(
+      (user) => String(user.id) === targetId,
+    );
+
+    if (targetUserIndex !== -1) {
+      users[targetUserIndex] = data;
+
+      res.status(200).json({
+        message: "edit 성공",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      message: "edit 실패",
       error,
     });
   }
@@ -114,4 +140,5 @@ module.exports = {
   getUsers,
   getUser,
   submit,
+  editUser,
 };

@@ -9,6 +9,7 @@ const {
   getUsers,
   getUser,
   submit,
+  editUser,
 } = require("./controller");
 
 const app = express();
@@ -30,6 +31,7 @@ app.get("/getskills", getSkills);
 app.get("/getusers", getUsers);
 app.get("/getuser", getUser);
 app.post("/submit", submit);
+app.put("/edituser/:id", editUser);
 
 app.listen(process.env.PORT, () => {
   console.log(`server is on ${process.env.PORT}`);

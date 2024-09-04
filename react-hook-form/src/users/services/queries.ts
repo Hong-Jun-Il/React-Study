@@ -42,11 +42,11 @@ export function useUsers() {
     queryFn: async (): Promise<OptionType[]> => {
       try {
         const response = await axiosInstance.get<ApiGet[]>("/getusers");
-
+        
         return response.data.map(
           (user) =>
             ({
-              id: user.id,
+              id: user.id.toString(),
               label: user.name,
             }) satisfies OptionType,
         );
@@ -71,7 +71,7 @@ export function useUser(id: string) {
 
         return {
           variant: "edit",
-          id: data.id,
+          id: data.id.toString(),
           name: data.name,
           email: data.email,
           formetEmploymentPeriod: [
