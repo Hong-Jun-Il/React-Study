@@ -1,8 +1,11 @@
+import { Route, Routes } from "react-router-dom";
+import Pagination from "./components/Pagination";
 
-
-function App() {
+function App() {  
   return (
-    <main className="flex justify-center items-center min-h-screen bg-sky-100"></main>
+    <Routes>
+      <Route path="/pagination" element={<Pagination />} />
+    </Routes>
   );
 }
 
