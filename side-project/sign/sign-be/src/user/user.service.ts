@@ -1,34 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { DatabaseService } from 'src/database/database.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class UserService {
-  private users = [
+  constructor(private readonly databaseService: DatabaseService){};
 
-  ]
+    async create(createUserDto: CreateUserDto){
+      const mappedUserData: Prisma.UserCreateInput = {
+        id: createUserDto.id,
+        password: createUserDto.pw,
+        nickname: createUserDto.nickname,
+        email: createUserDto.email
+      };
 
-  create(createUserDto: CreateUserDto) {
-    this.users.push(createUserDto)
-    return {
-      message: "create user 성공",
-      ...createUserDto
-    };
+      return this.databaseService.user.create({
+        data: mappedUserData
+      })
+    }
   }
-
-  findAll() {
-    return this.users;
-  }
-
-  // findOne(id: number) {
-  //   return `This action returns a #${id} user`;
-  // }
-
-  // update(id: number, updateUserDto: UpdateUserDto) {
-  //   return `This action updates a #${id} user`;
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} user`;
-  // }
-}

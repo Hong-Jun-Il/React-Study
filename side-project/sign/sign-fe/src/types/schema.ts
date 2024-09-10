@@ -22,7 +22,6 @@ export const SignUpSchema = z
       .max(12, { message: "Id is too long" })
       .trim()
       .refine((text) => patterns.id.test(text), { message: "Id is not valid" }),
-    //   .refine((text)=>patterns.space.test(text), {message: "공백은 사용할 수 없습니다"}),
     pw: z
       .string()
       .min(1, { message: "Password is required" })

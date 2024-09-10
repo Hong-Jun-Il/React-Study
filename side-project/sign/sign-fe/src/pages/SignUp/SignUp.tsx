@@ -1,22 +1,25 @@
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { SignUpSchemaType } from "../../types/schema";
 import { useEffect } from "react";
 import { useCreateUser } from "../../hooks/mutations";
+import { useGetUser } from "../../hooks/queries";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 export default function SignUp() {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    watch,
-  } = useFormContext<SignUpSchemaType>();
+  const { control, handleSubmit, watch } = useFormContext<SignUpSchemaType>();
 
   const createUserMutation = useCreateUser();
 
-  const onSubmit = (data: SignUpSchemaType)=>{
-    console.log(data);
+  const onSubmit = (data: SignUpSchemaType) => {
     createUserMutation.mutate(data);
-  }
+  };
 
   useEffect(() => {
     const sub = watch((value) => {
@@ -27,38 +30,19 @@ export default function SignUp() {
   }, [watch]);
 
   return (
-    <form className="flex flex-col text-2xl" onSubmit={handleSubmit(onSubmit)}>
-      <input
-        type="text"
-        {...register("email")}
-        className="border border-red-500"
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+      <FormField
+        control={control}
+        name="nickname"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>nickname</FormLabel>
+            <FormControl>
+              <Input placeholder="nickname" {...field} />
+            </FormControl>
+          </FormItem>
+        )}
       />
-      {errors.email && <p>{errors.email.message}</p>}
-      <input
-        type="text"
-        {...register("nickname")}
-        className="border border-red-500"
-      />
-      {errors.nickname && <p>{errors.nickname.message}</p>}
-      <input
-        type="text"
-        {...register("id")}
-        className="border border-red-500"
-      />
-      {errors.id && <p>{errors.id.message}</p>}
-      <input
-        type="text"
-        {...register("pw")}
-        className="border border-red-500"
-      />
-      {errors.pw && <p>{errors.pw.message}</p>}
-      <input
-        type="text"
-        {...register("pwCheck")}
-        className="border border-red-500"
-      />
-      {errors.pwCheck && <p>{errors.pwCheck.message}</p>}
-      <input type="submit" />
     </form>
   );
 }
