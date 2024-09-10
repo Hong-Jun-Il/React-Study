@@ -1,16 +1,8 @@
-import { Controller, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { SignUpSchemaType } from "../../types/schema";
 import { useEffect } from "react";
 import { useCreateUser } from "../../hooks/mutations";
-import { useGetUser } from "../../hooks/queries";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { ShadCnTextInput } from "@/components/common/shadcnTextInput";
 
 export default function SignUp() {
   const { control, handleSubmit, watch } = useFormContext<SignUpSchemaType>();
@@ -31,18 +23,7 @@ export default function SignUp() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-      <FormField
-        control={control}
-        name="nickname"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>nickname</FormLabel>
-            <FormControl>
-              <Input placeholder="nickname" {...field} />
-            </FormControl>
-          </FormItem>
-        )}
-      />
+      <ShadCnTextInput<SignUpSchemaType> name="email" labelText="Email" placeHolderText="이메일을 입력해주세요" />
     </form>
   );
 }
