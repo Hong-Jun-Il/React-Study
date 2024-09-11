@@ -1,21 +1,44 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ValidationPipe,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post()
-  create(@Body(ValidationPipe) createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  @Get()
+  async findAll() {
+    return {
+      message: 'get users 성공',
+      users: await this.userService.findAll(),
+    };
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.userService.findAll();
-  // }
+  @Post()
+  create(@Body(ValidationPipe) createUserDto: CreateUserDto) {
+    return {
+      message: "create user 성공",
+      user: this.userService.create(createUserDto),
+    }
+  }
+
+  @Post()
+  onLogin(@Body(ValidationPipe) loginUserDto: LoginUserDto){
+    return {
+      message: "로그인 성공"
+    }
+  }
 
   // @Get(':id')
   // findOne(@Param('id') id: string) {

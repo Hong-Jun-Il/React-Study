@@ -1,21 +1,28 @@
-import { createBrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import { SignUpProvider } from "./pages/SignUp/SignUpProvider";
-import { Button } from "./components/ui/button";
+import LandingPage from "./pages/landing/LandingPage";
+import { SignInProvider } from "./pages/SignIn/SignInProvider";
 
 const router = createBrowserRouter([
   {
-    
+    path: "/",
+    element: <LandingPage />
+  },
+  {
+    path: "/signin",
+    element: <SignInProvider />
+  },
+  {
+    path: "/signup",
+    element: <SignUpProvider />
   }
 ])
 
 function App() {
-  return (
-    <main className="flex items-center justify-center min-h-screen">
-      <Routes>
-        <Route path="/signup" element={<SignUpProvider />} />
-      </Routes>
-    </main>
-  );
+  return <RouterProvider router={router} />
 }
 
 export default App;

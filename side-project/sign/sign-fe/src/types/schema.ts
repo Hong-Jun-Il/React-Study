@@ -46,3 +46,15 @@ export const signUpDefaultValues: SignUpSchemaType = {
   pw: "",
   pwCheck: "",
 };
+
+export const SignInSchema = z.object({
+  id: z.string().min(1, { message: "아이디를 입력해주세요" }),
+  pw: z.string().min(1, { message: "비밀번호를 입력해주세요" }),
+});
+
+export type SignInSchemaType = z.infer<typeof SignInSchema>;
+
+export const SignInDefaultValues: SignInSchemaType = {
+  id: "",
+  pw: "",
+};

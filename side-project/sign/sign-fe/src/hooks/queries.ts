@@ -1,21 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../api/api";
+import { UserType } from "@/types/user";
 
-// type UsersResponseType = {
-//     message: string;
-//     uesrs: 
-// }
+type UsersResponseType = {
+    users: UserType[],
+    message: string;
+}
 
 export function useGetUser(){
     return useQuery({
         queryKey: ["users"],
-        queryFn: async()=>{
+        queryFn: async(): Promise<UserType[]>=>{
             try {
-                const response = await axiosInstance.get("/user");
+                const response = await axiosInstance.get<UsersResponseType>("/user");
 
-                return response.data;
+                return response.data.users;
             } catch (error) {
                 console.log(error);
+                throw error;
             }
         }
     })

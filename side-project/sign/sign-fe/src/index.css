@@ -30,6 +30,12 @@
     height: 100%;
     object-fit: fill;
   }
+
+  section {
+    width: 100%;
+    min-height: 100vh;
+    background-color: aliceblue;
+  }
 }
 
 @layer base {
@@ -60,6 +66,7 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -92,6 +99,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
