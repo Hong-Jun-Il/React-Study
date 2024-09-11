@@ -28,7 +28,7 @@ export class UserService {
     return this.databaseService.user.findMany();
   }
 
-  onLogin(loginUserDto: LoginUserDto) {
+  async onLogin(loginUserDto: LoginUserDto) {
     const user = this.databaseService.user.findUnique({
       where: {
         id: loginUserDto.id,

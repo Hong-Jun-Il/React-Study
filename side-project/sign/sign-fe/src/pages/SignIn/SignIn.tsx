@@ -5,7 +5,7 @@ import { useFormContext } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 export default function SignIn() {
-    const {handleSubmit} = useFormContext<SignInSchemaType>();
+  const { handleSubmit } = useFormContext<SignInSchemaType>();
 
   return (
     <section className="flex flex-col items-center justify-center">
@@ -17,7 +17,9 @@ export default function SignIn() {
         />
         <Button type="submit">로그인</Button>
       </form>
-      <Link to="/signup" className="bg-lime-200">회원가입하기</Link>
+      <Link to="/signup" className="bg-lime-200">
+        회원가입하기
+      </Link>
     </section>
   );
 }
