@@ -25,19 +25,24 @@ export class UserController {
     };
   }
 
-  @Post()
-  create(@Body(ValidationPipe) createUserDto: CreateUserDto) {
+  @Post('signup')
+  async create(@Body(ValidationPipe) createUserDto: CreateUserDto) {
+    const { password, ...others } =
+      await this.userService.create(createUserDto);
     return {
-      message: "create user 성공",
-      user: this.userService.create(createUserDto),
-    }
+      message: 'create user 성공',
+      user: others,
+    };
   }
 
-  @Post()
-  onLogin(@Body(ValidationPipe) loginUserDto: LoginUserDto){
+  @Post("signin")
+  async onLogin(@Body(ValidationPipe) loginUserDto: LoginUserDto) {
+    const test = await this.userService.onLogin(loginUserDto);
+    console.log(test);
     return {
-      message: "로그인 성공"
-    }
+      message: '로그인 성공',
+      error: test
+    };
   }
 
   // @Get(':id')

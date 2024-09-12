@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { DatabaseService } from 'src/database/database.service';
@@ -24,15 +24,22 @@ export class UserService {
     });
   }
 
-  findAll() {
-    return this.databaseService.user.findMany();
-  }
-
   async onLogin(loginUserDto: LoginUserDto) {
-    const user = this.databaseService.user.findUnique({
+    const user = await this.databaseService.user.findUnique({
       where: {
         id: loginUserDto.id,
       },
     });
+
+    console.log(user);
+    if(!user){
+      throw new NotFoundException("Can't find user");
+    }
+
+    return user
+  }
+
+  findAll() {
+    return this.databaseService.user.findMany();
   }
 }

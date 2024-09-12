@@ -4,7 +4,7 @@ import * as path from 'path';
 
 @Injectable()
 export class MyLoggerService extends ConsoleLogger {
-  async logToFile(entry) {
+  async logToFile(entry: string) {
     const formattedEntry = `${Intl.DateTimeFormat('ko-KR', {
       dateStyle: 'short',
       timeStyle: 'short',
@@ -26,13 +26,13 @@ export class MyLoggerService extends ConsoleLogger {
   }
 
   log(message: any, context?: string) {
-    const entry = `${context}\t${message}`;
+    const entry = `${context}\t${typeof message === 'object' ? message.message : message}`;
     this.logToFile(entry);
     super.log(message, context);
   }
 
   error(message: any, stackOrContext?: string) {
-    const entry = `${stackOrContext}\t${message}`;
+    const entry = `${stackOrContext}\t${typeof message === 'object' ? message.message : message}`;
     this.logToFile(entry);
     super.error(message, stackOrContext);
   }
