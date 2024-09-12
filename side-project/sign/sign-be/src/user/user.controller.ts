@@ -38,10 +38,9 @@ export class UserController {
   @Post("signin")
   async onLogin(@Body(ValidationPipe) loginUserDto: LoginUserDto) {
     const test = await this.userService.onLogin(loginUserDto);
-    console.log(test);
+
     return {
       message: '로그인 성공',
-      error: test
     };
   }
 
