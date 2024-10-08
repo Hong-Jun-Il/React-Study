@@ -1,9 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const {
-  
-} = require("./controller");
+const { getPosts } = require("./controller");
 
 const app = express();
 dotenv.config();
@@ -17,6 +15,8 @@ app.use(
   })
 );
 
+app.get("/api/getPosts", getPosts);
+
 app.listen(process.env.PORT, () => {
   console.log(`server is on ${process.env.PORT}`);
-})
+});
