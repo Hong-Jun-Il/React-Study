@@ -1,5 +1,6 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../api/api";
+import getUsers from "@/api/getUsers";
 
 type ItemType = {
   id: number;
@@ -34,5 +35,12 @@ export function useGetItems(page: number) {
       }
     },
     placeholderData: keepPreviousData,
+  });
+}
+
+export function useGetUsers() {
+  return useQuery({
+    queryKey: ["users"],
+    queryFn: getUsers,
   });
 }
